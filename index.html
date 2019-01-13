@@ -54,6 +54,7 @@
         var startStopButton; // 「辨識/停止」按鈕
         var final_transcript = ''; // 最終的辨識訊息的變數
         var recognizing = false; // 是否辨識中
+        var result; //取出辨識值
 
         function startButton(event) {
             infoBox = document.getElementById("infoBox"); // 取得訊息控制項 infoBox
@@ -97,6 +98,12 @@
                 for (var i = event.resultIndex; i < event.results.length; ++i) { // 對於每一個辨識結果
                     if (event.results[i].isFinal) { // 如果是最終結果
                         final_transcript += event.results[i][0].transcript; // 將其加入最終結果中
+                        result = event.results[i][0].transcript; //將結果取出
+                        if (result == "幫我開電扇") {
+                            window.alert("叫你開電扇啦幹");
+                        } else if (result == "我好帥") {
+                            window.alert("我知道：）");
+                        }
                     } else { // 否則
                         interim_transcript += event.results[i][0].transcript; // 將其加入中間結果中
                     }
