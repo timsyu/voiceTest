@@ -114,18 +114,32 @@
                     tempBox.value = interim_transcript; // 顯示中間辨識文字
             };
         }
+
+        function playAudio(id, lang, text) {
+            var audio = document.getElementById(id); // 取得 audio 控制項
+            audio.src = "http://translate.google.com/translate_tts?ie=utf-8&tl=" + lang + "&q=" + text + "&client=tw-ob"; // 設定語音為 google TTS。
+            audio.addEventListener('ended', function() {
+                this.currentTime = 0;
+            }, false); // 當播放完畢，強制回到開頭。
+            audio.play(); // 播放語音。
+        }
     </script>
     <div id="demo" align="center">
         <select id="langCombo">
             <option value="cmn-Hant-TW">中文(台灣)</option>
     </select>
+
         <button id="startStopButton" onclick="startButton(event)" class="button"><span>辨識</span></button>
+        <audio id="audio1"></audio>
+        <button class="button" onclick="playAudio('audio1', 'zh', document.getElementById('textBox').value);">播放</button>
         <BR/>
         <BR/> 最後結果：
         <textarea id="textBox" rows="2" name="S1" cols="20" style="width:1000px;height:300px; font-size:20px"></textarea>
         <BR/> 中間結果：
         <textarea id="tempBox" rows="2" name="S1" cols="20" style="width:1000px;height:300px; font-size:20px"></textarea>
         <label id="infoBox"></label>
+
+
     </div>
 </body>
 
